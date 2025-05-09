@@ -40,7 +40,7 @@ import 'package:irrigiation_app/models/control_model.dart';
 class getControlStatus {
   Future<ControlModel> getStatus() async {
     Map<String, dynamic> data = await API().post(
-      url: 'https://88bb-196-128-10-0.ngrok-free.app/api',
+      url: 'https://9cd5-196-137-82-57.ngrok-free.app/api/irrigate-soil',
     );
 
     return ControlModel.fromJson(data);

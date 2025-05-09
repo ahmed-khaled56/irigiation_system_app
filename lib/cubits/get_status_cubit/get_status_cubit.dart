@@ -26,17 +26,16 @@ import 'package:irrigiation_app/services/status_service.dart';
 class GetStatusCubit extends Cubit<StatusStates> {
   GetStatusCubit() : super(NoStatusState());
 
-  final StreamController<Map<String, StatusResponseModel>> _statusController =
+  final StreamController<StatusResponseModel> _statusController =
       StreamController.broadcast();
 
-  Stream<Map<String, StatusResponseModel>> get statusStream =>
-      _statusController.stream;
+  Stream<StatusResponseModel> get statusStream => _statusController.stream;
 
   Future<void> getStatus() async {
     try {
-      final statusMap = await GetStatus().getstatus();
-      _statusController.add(statusMap); // بث البيانات
-      emit(StatusLoadedSuccessfullSatate(statusMap: statusMap));
+      final status = await GetStatus().getStatus(); // يرجع كائن مفرد
+      _statusController.add(status); // بث البيانات عبر الستريم
+      emit(StatusLoadedSuccessfullSatate(statusModel: status));
     } catch (e) {
       _statusController.addError(e);
       emit(StatusFailureSatate(errMessage: e.toString()));

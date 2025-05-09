@@ -84,7 +84,7 @@ class NotificationService {
   Future<List<NotificationItem>> fetchNotifications() async {
     // 1) Call your API.get, passing the notifications URL
     final responseJson = await _apiClient.get(
-      url: 'https://88bb-196-128-10-0.ngrok-free.app/api/notifications',
+      url: 'https://9cd5-196-137-82-57.ngrok-free.app/api/notifications',
     );
 
     // 2) Decode into our wrapper model

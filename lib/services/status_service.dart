@@ -40,19 +40,34 @@ import 'package:irrigiation_app/models/status_model.dart';
 
 //     return productsList;
 //   }
+// // }
+// class GetStatus {
+//   Future<Map<String, StatusResponseModel>> getstatus() async {
+//     Map<String, dynamic> data = await API().post(
+//       url: 'https://9cd5-196-137-82-57.ngrok-free.app/api/data',
+//     );
+
+//     Map<String, StatusResponseModel> productsMap = {};
+
+//     data.forEach((key, value) {
+//       productsMap[key] = StatusResponseModel.fromJson(value);
+//     });
+
+//     return productsMap;
+//   }
 // }
 class GetStatus {
-  Future<Map<String, StatusResponseModel>> getstatus() async {
-    Map<String, dynamic> data = await API().get(
-      url: 'https://88bb-196-128-10-0.ngrok-free.api',
+  Future<StatusResponseModel> getStatus() async {
+    Map<String, dynamic> response = await API().post(
+      url: 'https://9cd5-196-137-82-57.ngrok-free.app/api/data',
     );
 
-    Map<String, StatusResponseModel> productsMap = {};
-
-    data.forEach((key, value) {
-      productsMap[key] = StatusResponseModel.fromJson(value);
-    });
-
-    return productsMap;
+    // نتأكد إن المفتاح موجود ونوعه Map
+    if (response.containsKey('data') &&
+        response['data'] is Map<String, dynamic>) {
+      return StatusResponseModel.fromJson(response);
+    } else {
+      throw Exception("Invalid or missing 'data' in response");
+    }
   }
 }

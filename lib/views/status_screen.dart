@@ -124,9 +124,9 @@ class _StatusScreenState extends State<StatusScreen> {
                       ElevatedButton(
                         onPressed: () {
                           getStatusCubit.getStatus();
-                          setState(() {
-                            isPressd = true;
-                          });
+                          // setState(() {
+                          //   isPressd = true;
+                          // });
                         },
                         child: const Text('Check Now'),
                       ),
@@ -137,20 +137,17 @@ class _StatusScreenState extends State<StatusScreen> {
                           if (state is NoStatusState) {
                             return const Text('Start checking now 🔍');
                           } else if (state is StatusFailureSatate) {
-                            return const Text('Something went wrong ❌');
+                            return Text(state.errMessage);
                           } else if (state is StatusLoadedSuccessfullSatate) {
-                            return StreamBuilder<
-                              Map<String, StatusResponseModel>
-                            >(
-                              stream: getStatusCubit.statusStream,
+                            return StreamBuilder<StatusResponseModel>(
+                              stream:
+                                  context.read<GetStatusCubit>().statusStream,
                               builder: (context, snapshot) {
-                                if (!snapshot.hasData ||
-                                    snapshot.data!.isEmpty) {
+                                if (!snapshot.hasData) {
                                   return const Text('No data found.');
                                 }
 
-                                final status =
-                                    snapshot.data!.entries.first.value;
+                                final status = snapshot.data!;
                                 return StatusBody(status: status);
                               },
                             );

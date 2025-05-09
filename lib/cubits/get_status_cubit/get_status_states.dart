@@ -5,13 +5,16 @@ class StatusStates {}
 class NoStatusState extends StatusStates {}
 
 class StatusLoadedSuccessfullSatate extends StatusStates {
-  final Map<String, StatusResponseModel> statusMap;
+  final StatusResponseModel statusModel;
 
-  StatusLoadedSuccessfullSatate({required this.statusMap});
+  StatusLoadedSuccessfullSatate({required this.statusModel});
 }
 
 class StatusFailureSatate extends StatusStates {
   final String errMessage;
 
   StatusFailureSatate({required this.errMessage});
+  // factory StatusFailureSatate({required String errMessage});
+  //   throw Exception('This is a generic exception,$errMessage');
+  // }
 }

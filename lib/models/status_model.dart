@@ -18,7 +18,6 @@
 //   }
 // }
 class StatusDataModel {
-  final int id;
   final String soilMoisture;
   final String soilTemperature;
   final bool irrigation;
@@ -27,7 +26,6 @@ class StatusDataModel {
   final String temperature;
 
   StatusDataModel({
-    required this.id,
     required this.soilMoisture,
     required this.soilTemperature,
     required this.irrigation,
@@ -38,25 +36,22 @@ class StatusDataModel {
 
   factory StatusDataModel.fromJson(json) {
     return StatusDataModel(
-      id: json['id'],
-      soilMoisture: json['soil_moisture'],
-      soilTemperature: json['soil_temperature'],
-      irrigation: json['irrigation'],
-      createdAt: json['created_at'],
-      updatedAt: json['updated_at'],
-      temperature: json['temperature'],
+      soilMoisture: json['soil_moisture'] ?? '',
+      soilTemperature: json['soil_temperature'] ?? '',
+      irrigation: json['irrigation'] ?? false,
+      createdAt: json['created_at'] ?? '',
+      updatedAt: json['updated_at'] ?? '',
+      temperature: json['temperature'] ?? '',
     );
   }
 }
 
 class StatusResponseModel {
-  final int code;
   final String message;
   final List<dynamic> errors;
   final StatusDataModel data;
 
   StatusResponseModel({
-    required this.code,
     required this.message,
     required this.errors,
     required this.data,
@@ -64,8 +59,7 @@ class StatusResponseModel {
 
   factory StatusResponseModel.fromJson(Map<String, dynamic> json) {
     return StatusResponseModel(
-      code: json['code'],
-      message: json['message'],
+      message: json['message'] ?? '',
       errors: json['errors'] ?? [],
       data: StatusDataModel.fromJson(json['data']),
     );
